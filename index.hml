@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Google Calendar API Example</title>
+</head>
+<body>
+    <h1>Google Calendar API Example</h1>
+    <script>
+        // APIキーを設定
+        const API_KEY = 'YOUR_API_KEY_HERE';
+        // カレンダーIDを設定（例: 'primary'、またはカスタムカレンダーのID）
+        const CALENDAR_ID = 'YOUR_CALENDAR_ID_HERE';
+        // ISO8601形式の現在の日付と1週間後の日付を取得
+        const now = new Date().toISOString();
+        const oneWeekLater = new Date(new Date().setDate(new Date().getDate() + 7)).toISOString();
+
+        // Google Calendar APIからイベントを取得する関数
+        function getEvents() {
+            const url = `https://www.googleapis.com/calendar/v3/calendars/${CALENDAR_ID}/events?key=${API_KEY}&timeMin=${now}&timeMax=${oneWeekLater}&singleEvents=true&orderBy=startTime`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Upcoming Events:', data.items);
+                    if (!data.items || data.items.length === 0) {
+                        console.log('No upcoming events found.');
+                    } else {
+                        data.items.forEach(event => {
+                            const start = event.start.dateTime || event.start.date;
+                            console.log(`${start} - ${event.summary}`);
+                        });
+                    }
+                })
+                .catch(error => console.log('Error fetching events:', error));
+        }
+
+        // ページがロードされたらイベントを取得
+        document.addEventListener('DOMContentLoaded', getEvents);
+    </script>
+</body>
+</html>
