@@ -7,9 +7,9 @@
     <h1>Google Calendar API Example</h1>
     <script>
         // APIキーを設定
-        const API_KEY = 'YOUR_API_KEY_HERE';
+        const API_KEY = 'AIzaSyCbYXSHMp4dkTxF7yGplSLGdck2pQ-oBoU';
         // カレンダーIDを設定（例: 'primary'、またはカスタムカレンダーのID）
-        const CALENDAR_ID = 'YOUR_CALENDAR_ID_HERE';
+        const CALENDAR_ID = '1e819ad725d53549b6693d7df5669332ace8e3c91532ba15e79622443e6521c1@group.calendar.google.com';
         // ISO8601形式の現在の日付と1週間後の日付を取得
         const now = new Date().toISOString();
         const oneWeekLater = new Date(new Date().setDate(new Date().getDate() + 7)).toISOString();
