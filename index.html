@@ -59,9 +59,12 @@
         document.getElementById('generateImageBtn').addEventListener('click', function() {
             const canvas = document.getElementById('resultCanvas');
             const ctx = canvas.getContext('2d');
+            const padding = 20;
             canvas.style.display = 'block';
             canvas.width = 1280; //
             canvas.height = 720; //
+            ctx.font = "bold 48px serif";
+
 
             let currentY = 0;
             uploadedImages.forEach((img, index) => {
@@ -69,8 +72,8 @@
                 const eventsContainer = document.getElementById('eventsContainer');
                 const eventInfo = eventsContainer.childNodes[index * 2 + 1]; // Get the event info element
 
-                ctx.drawImage(img, 0, currentY, 80, currentY + 120); // Draw image
-                ctx.fillText(eventInfo.textContent, img.width + 10, currentY + 20); // Draw text next to image
+                ctx.drawImage(img, padding, currentY, 80, 120); // Draw image
+                ctx.fillText(eventInfo.textContent, 120 + padding + padding, currentY + 20); // Draw text next to image
 
                 currentY += 120 + 40;
             });
