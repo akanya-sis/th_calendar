@@ -84,7 +84,7 @@
             canvas.style.display = 'block';
             canvas.width = 1280; //
             canvas.height = 720; //
-            ctx.font = "bold 48px serif";
+            ctx.font = "bold 40px Hiragino Kaku Gothic ProN";
             //ctx.drawImage(img, padding, currentY, 120, 80)
 
 
@@ -94,7 +94,7 @@
                 const eventsContainer = document.getElementById('eventsContainer');
                 const eventInfo = eventsContainer.childNodes[index * 2 + 1]; // Get the event info element
 
-                ctx.drawImage(img, padding, currentY + padding, 120, 80); // Draw image
+                ctx.drawImage(img, padding, currentY + padding, 240, 160); // Draw image
                 ctx.fillText(eventInfo.textContent, 120 + padding + padding, currentY + 60 + padding); // Draw text next to image
 
                 currentY += 120 + 40;
