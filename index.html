@@ -1,41 +1,81 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Google Calendar API Example</title>
+    <title>Calendar Events and Image Generator</title>
+    <script src="https://apis.google.com/js/api.js"></script>
 </head>
 <body>
-    <h1>Google Calendar API Example</h1>
+    <div id="eventsContainer"></div>
+    <button id="generateImageBtn">Generate Image</button>
+    <canvas id="resultCanvas" style="border:1px solid #000; display:none;"></canvas>
+
     <script>
-        // APIキーを設定
         const API_KEY = 'AIzaSyCbYXSHMp4dkTxF7yGplSLGdck2pQ-oBoU';
-        // カレンダーIDを設定（例: 'primary'、またはカスタムカレンダーのID）
         const CALENDAR_ID = '1e819ad725d53549b6693d7df5669332ace8e3c91532ba15e79622443e6521c1@group.calendar.google.com';
-        // ISO8601形式の現在の日付と1週間後の日付を取得
-        const now = new Date().toISOString();
-        const oneWeekLater = new Date(new Date().setDate(new Date().getDate() + 7)).toISOString();
+        const uploadedImages = [];
 
-        // Google Calendar APIからイベントを取得する関数
-        function getEvents() {
-            const url = `https://www.googleapis.com/calendar/v3/calendars/${CALENDAR_ID}/events?key=${API_KEY}&timeMin=${now}&timeMax=${oneWeekLater}&singleEvents=true&orderBy=startTime`;
-
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Upcoming Events:', data.items);
-                    if (!data.items || data.items.length === 0) {
-                        console.log('No upcoming events found.');
-                    } else {
-                        data.items.forEach(event => {
-                            const start = event.start.dateTime || event.start.date;
-                            console.log(`${start} - ${event.summary}`);
-                        });
-                    }
-                })
-                .catch(error => console.log('Error fetching events:', error));
+        function listUpcomingEvents() {
+            gapi.client.init({
+                'apiKey': API_KEY,
+                'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
+            }).then(function() {
+                return gapi.client.calendar.events.list({
+                    'calendarId': CALENDAR_ID,
+                    'timeMin': (new Date()).toISOString(),
+                    'timeMax': new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+                    'singleEvents': true,
+                    'orderBy': 'startTime'
+                });
+            }).then(function(response) {
+                const events = response.result.items;
+                const eventsContainer = document.getElementById('eventsContainer');
+                events.forEach((event, index) => {
+                    const start = event.start.dateTime || event.start.date;
+                    const eventInfo = document.createElement('div');
+                    eventInfo.textContent = `${event.summary} (${start})`;
+                    const fileInput = document.createElement('input');
+                    fileInput.type = 'file';
+                    fileInput.accept = 'image/*';
+                    fileInput.onchange = function(e) {
+                        handleImageUpload(e, index);
+                    };
+                    eventsContainer.appendChild(fileInput);
+                    eventsContainer.appendChild(eventInfo);
+                });
+            }, function(reason) {
+                console.error('Error: ' + reason.result.error.message);
+            });
         }
 
-        // ページがロードされたらイベントを取得
-        document.addEventListener('DOMContentLoaded', getEvents);
+        function handleImageUpload(e, index) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                uploadedImages[index] = new Image();
+                uploadedImages[index].src = event.target.result;
+            };
+            reader.readAsDataURL(e.target.files[0]);
+        }
+
+        document.getElementById('generateImageBtn').addEventListener('click', function() {
+            const canvas = document.getElementById('resultCanvas');
+            const ctx = canvas.getContext('2d');
+            canvas.style.display = 'block';
+
+            let currentY = 0;
+            uploadedImages.forEach((img, index) => {
+                if (!img) return;
+                const eventsContainer = document.getElementById('eventsContainer');
+                const eventInfo = eventsContainer.childNodes[index * 2 + 1]; // Get the event info element
+
+                canvas.height += img.height + 40; // Update canvas height for each image and text
+                ctx.drawImage(img, 0, currentY); // Draw image
+                ctx.fillText(eventInfo.textContent, img.width + 10, currentY + 20); // Draw text next to image
+
+                currentY += img.height + 40;
+            });
+        });
+
+        gapi.load('client', listUpcomingEvents);
     </script>
 </body>
 </html>
