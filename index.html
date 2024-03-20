@@ -33,7 +33,7 @@
                 events.forEach((event, index) => {
                     const start = event.start.dateTime || event.start.date;
                     const eventInfo = document.createElement('div');
-                    eventInfo.textContent = `${event.summary} ${moment(start).format("MM/DD HH:mm:SS")} 〜`;
+                    eventInfo.textContent = `${event.summary} ${moment(start).format("MM/DD HH:mm")} 〜`;
                     const fileInput = document.createElement('input');
                     fileInput.type = 'file';
                     fileInput.accept = 'image/*';
@@ -74,8 +74,8 @@
                 const eventsContainer = document.getElementById('eventsContainer');
                 const eventInfo = eventsContainer.childNodes[index * 2 + 1]; // Get the event info element
 
-                ctx.drawImage(img, padding, currentY, 120, 80); // Draw image
-                ctx.fillText(eventInfo.textContent, 120 + padding + padding, currentY + 60); // Draw text next to image
+                ctx.drawImage(img, padding, currentY + padding, 120, 80); // Draw image
+                ctx.fillText(eventInfo.textContent, 120 + padding + padding, currentY + 60 + padding); // Draw text next to image
 
                 currentY += 120 + 40;
             });
