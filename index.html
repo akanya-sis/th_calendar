@@ -33,7 +33,7 @@
                 events.forEach((event, index) => {
                     const start = event.start.dateTime || event.start.date;
                     const eventInfo = document.createElement('div');
-                    eventInfo.textContent = `${event.summary} (${moment(start).format("MM/DD HH:mm:SS")})`;
+                    eventInfo.textContent = `${event.summary} ${moment(start).format("MM/DD HH:mm:SS")} 〜`;
                     const fileInput = document.createElement('input');
                     fileInput.type = 'file';
                     fileInput.accept = 'image/*';
