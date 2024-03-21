@@ -16,6 +16,7 @@
         const API_KEY = 'AIzaSyCbYXSHMp4dkTxF7yGplSLGdck2pQ-oBoU';
         const CALENDAR_ID = '1e819ad725d53549b6693d7df5669332ace8e3c91532ba15e79622443e6521c1@group.calendar.google.com';
         const uploadedImages = [];
+        const centerX = canvas.width / 2;
 
         function listUpcomingEvents() {
             gapi.client.init({
@@ -89,6 +90,14 @@
             ctx.lineJoin = "round";
             //ctx.miterLimit = "5"
 
+            // 中央線
+            ctx.beginPath(); // 描画を開始する
+            ctx.moveTo(centerX, 0); // 線の開始点を設定する（Canvasの上端から）
+            ctx.lineTo(centerX, canvas.height); // 線の終了点を設定する（Canvasの下端まで）
+            ctx.strokeStyle = '#f00'; // 線の色を設定する
+            ctx.lineWidth = 2; // 線の幅を設定する
+            ctx.stroke(); // 線を描画する
+
             let currentY = 0;
             uploadedImages.forEach((img, index) => {
                 if (!img) return;
@@ -103,9 +112,9 @@
                 ctx.fillText(eventInfo.textSummary, 120 + padding + padding, currentY + 30 + padding); // Draw text next to image
 
                 ctx.fillStyle = '#000000'; // 色を指定
-                ctx.strokeText(eventInfo.textTime, 120 + padding + padding, currentY + 62 + padding);
+                ctx.strokeText(eventInfo.textTime, 120 + padding + padding, currentY + 72 + padding);
                 ctx.fillStyle = '#ffffff'; // 色を指定
-                ctx.fillText(eventInfo.textTime, 120 + padding + padding, currentY + 62 + padding); // Draw text next to image
+                ctx.fillText(eventInfo.textTime, 120 + padding + padding, currentY + 72 + padding); // Draw text next to image
 
                 currentY += 80 + 20;
             });
