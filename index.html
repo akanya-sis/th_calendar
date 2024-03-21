@@ -81,7 +81,6 @@
             const canvas = document.getElementById('resultCanvas');
             const ctx = canvas.getContext('2d');
             const padding = 20;
-            ctx.font = "bold 40px Hiragino Kaku Gothic ProN";
             ctx.fillStyle = '#FFFFFF'; // 白色を指定
             ctx.fillRect(0, 0, canvas.width, canvas.height); // Canvasの左上から右下まで塗りつぶす
 
@@ -92,6 +91,11 @@
                 const eventInfo = eventsContainer.childNodes[index * 2 + 1]; // Get the event info element
 
                 ctx.drawImage(img, padding, currentY + padding, 240, 160); // Draw image
+                ctx.font = "bold 40px Hiragino Kaku Gothic ProN";
+                ctx.fillStyle = '#ffffff'; // 白色を指定
+                ctx.fillText(eventInfo.textContent, 240 + padding + padding, currentY + 60 + padding); // Draw text next to image
+                ctx.font = "bold 32px Hiragino Kaku Gothic ProN";
+                ctx.fillStyle = '#000000'; // 白色を指定
                 ctx.fillText(eventInfo.textContent, 240 + padding + padding, currentY + 60 + padding); // Draw text next to image
 
                 currentY += 160 + 40;
