@@ -86,8 +86,8 @@
             ctx.fillStyle = '#FFFFFF'; // 白色を指定
             ctx.fillRect(0, 0, canvas.width, canvas.height); // Canvasの左上から右下まで塗りつぶす
             ctx.lineWidth = "8";
-            ctx.lineJoin = "miter";
-            ctx.miterLimit = "5"
+            ctx.lineJoin = "round";
+            //ctx.miterLimit = "5"
 
             let currentY = 0;
             uploadedImages.forEach((img, index) => {
