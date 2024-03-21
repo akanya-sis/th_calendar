@@ -105,19 +105,19 @@
                 const eventsContainer = document.getElementById('eventsContainer');
                 const eventInfo = eventsContainer.childNodes[index * 2 + 1]; // Get the event info element
 
-                ctx.drawImage(img, padding, currentY + padding, 120, 80); // Draw image
+                ctx.drawImage(img, padding, currentY + padding, 150, 100); // Draw image
                 ctx.font = "bold 32px Hiragino Kaku Gothic ProN";
-                ctx.fillStyle = '#000000'; // 色を指定
-                ctx.strokeText(eventInfo.textSummary, 120 + padding + padding, currentY + 30 + padding);
+                ctx.strokeStyle = '#000000'; // 線の色を設定する
+                ctx.strokeText(eventInfo.textSummary, 150 + padding + padding, currentY + 30 + padding);
                 ctx.fillStyle = '#ffffff'; // 色を指定
-                ctx.fillText(eventInfo.textSummary, 120 + padding + padding, currentY + 30 + padding); // Draw text next to image
+                ctx.fillText(eventInfo.textSummary, 150 + padding + padding, currentY + 30 + padding); // Draw text next to image
 
-                ctx.fillStyle = '#000000'; // 色を指定
-                ctx.strokeText(eventInfo.textTime, 120 + padding + padding, currentY + 72 + padding);
+                ctx.strokeStyle = '#000000'; // 線の色を設定する
+                ctx.strokeText(eventInfo.textTime, 150 + padding + padding, currentY + 30 + padding + 38);
                 ctx.fillStyle = '#ffffff'; // 色を指定
-                ctx.fillText(eventInfo.textTime, 120 + padding + padding, currentY + 72 + padding); // Draw text next to image
+                ctx.fillText(eventInfo.textTime, 150 + padding + padding, currentY + 30 + padding + 38); // Draw text next to image
 
-                currentY += 80 + 20;
+                currentY += 100 + 20;
             });
         });
 
