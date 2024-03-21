@@ -35,7 +35,8 @@
                 events.forEach((event, index) => {
                     const start = event.start.dateTime || event.start.date;
                     const eventInfo = document.createElement('div');
-                    eventInfo.textContent = `${event.summary} ${moment(start).format("MM/DD HH:mm")} 〜`;
+                    eventInfo.textSummary = `${event.summary}`;
+                    eventInfo.textTime = `${moment(start).format("MM/DD HH:mm")} 〜`;
                     const fileInput = document.createElement('input');
                     fileInput.type = 'file';
                     fileInput.accept = 'image/*';
@@ -96,9 +97,14 @@
                 ctx.drawImage(img, padding, currentY + padding, 120, 80); // Draw image
                 ctx.font = "bold 32px Hiragino Kaku Gothic ProN";
                 ctx.fillStyle = '#000000'; // 色を指定
-                ctx.strokeText(eventInfo.textContent, 120 + padding + padding, currentY + 30 + padding);
+                ctx.strokeText(eventInfo.textSummary, 120 + padding + padding, currentY + 30 + padding);
                 ctx.fillStyle = '#ffffff'; // 色を指定
-                ctx.fillText(eventInfo.textContent, 120 + padding + padding, currentY + 30 + padding); // Draw text next to image
+                ctx.fillText(eventInfo.textSummary, 120 + padding + padding, currentY + 30 + padding); // Draw text next to image
+
+                ctx.fillStyle = '#000000'; // 色を指定
+                ctx.strokeText(eventInfo.textTime, 120 + padding + padding, currentY + 62 + padding);
+                ctx.fillStyle = '#ffffff'; // 色を指定
+                ctx.fillText(eventInfo.textTime, 120 + padding + padding, currentY + 62 + padding); // Draw text next to image
 
                 currentY += 80 + 20;
             });
