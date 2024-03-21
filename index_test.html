@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Draw Text with Boundary on Canvas</title>
+</head>
+<body>
+    <canvas id="myCanvas" width="400" height="200" style="border:1px solid #000;"></canvas>
+
+    <script>
+        // Canvasを取得
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // 描画するテキストとその設定
+        const text = 'Hello, Canvas!';
+        ctx.font = '24px Arial'; // フォントサイズとフォントファミリー
+        ctx.fillStyle = 'blue'; // テキストの色
+
+        // テキストをCanvas上に描画
+        const x = 50; // テキストの開始X座標
+        const y = 100; // テキストの開始Y座標
+        ctx.fillText(text, x, y);
+
+        // テキストの境界線を描画
+        const metrics = ctx.measureText(text);
+        const textWidth = metrics.width;
+        const padding = 10; // 境界線とテキストの間のパディング
+
+        // 境界線の設定
+        ctx.strokeStyle = 'red'; // 境界線の色
+        ctx.lineWidth = 2; // 境界線の太さ
+        // 境界線を描画（テキストの周りに余白を加えて描画）
+        ctx.strokeRect(x - padding, y - 24 - padding, textWidth + 2 * padding, 24 + 2 * padding);
+    </script>
+</body>
+</html>
