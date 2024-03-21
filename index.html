@@ -83,6 +83,9 @@
             const padding = 20;
             ctx.fillStyle = '#FFFFFF'; // 白色を指定
             ctx.fillRect(0, 0, canvas.width, canvas.height); // Canvasの左上から右下まで塗りつぶす
+            ctx.lineWidth = "8";
+            ctx.lineJoin = "miter";
+            ctx.miterLimit = "5"
 
             let currentY = 0;
             uploadedImages.forEach((img, index) => {
@@ -91,14 +94,10 @@
                 const eventInfo = eventsContainer.childNodes[index * 2 + 1]; // Get the event info element
 
                 ctx.drawImage(img, padding, currentY + padding, 120, 80); // Draw image
-                ctx.font = "bold 42px Hiragino Kaku Gothic ProN";
-                ctx.fillStyle = '#000000'; // 白色を指定
-                ctx.fillText(eventInfo.textContent, 120 + padding + padding - 5, currentY + 30 + padding + 5); // Draw text next to image
-                ctx.font = "bold 40px Hiragino Kaku Gothic ProN";
-                ctx.fillStyle = '#ffffff'; // 白色を指定
-                ctx.fillText(eventInfo.textContent, 120 + padding + padding - 4, currentY + 30 + padding + 4); // Draw text next to image
                 ctx.font = "bold 32px Hiragino Kaku Gothic ProN";
-                ctx.fillStyle = '#000000'; // 白色を指定
+                ctx.fillStyle = '#000000'; // 色を指定
+                ctx.strokeText(eventInfo.textContent, 120 + padding + padding, currentY + 30 + padding);
+                ctx.fillStyle = '#ffffff'; // 色を指定
                 ctx.fillText(eventInfo.textContent, 120 + padding + padding, currentY + 30 + padding); // Draw text next to image
 
                 currentY += 80 + 20;
