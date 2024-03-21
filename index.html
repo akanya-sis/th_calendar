@@ -10,7 +10,7 @@
     <button id="generateImageBtn">Generate Image</button>
     <button onclick="downloadCanvasAsImage('png')">Download as PNG</button>
     <button onclick="downloadCanvasAsImage('jpg')">Download as JPG</button>
-    <canvas id="resultCanvas" style="border:1px solid #000; display:none;"></canvas>
+    <canvas id="resultCanvas" style="border:1px solid #000; display:block;" width="1280" height="720"></canvas>
 
     <script>
         const API_KEY = 'AIzaSyCbYXSHMp4dkTxF7yGplSLGdck2pQ-oBoU';
@@ -81,12 +81,9 @@
             const canvas = document.getElementById('resultCanvas');
             const ctx = canvas.getContext('2d');
             const padding = 20;
-            canvas.style.display = 'block';
-            canvas.width = 1280; //
-            canvas.height = 720; //
             ctx.font = "bold 40px Hiragino Kaku Gothic ProN";
-            //ctx.drawImage(img, padding, currentY, 120, 80)
-
+            ctx.fillStyle = '#FFFFFF'; // 白色を指定
+            ctx.fillRect(0, 0, canvas.width, canvas.height); // Canvasの左上から右下まで塗りつぶす
 
             let currentY = 0;
             uploadedImages.forEach((img, index) => {
@@ -95,9 +92,9 @@
                 const eventInfo = eventsContainer.childNodes[index * 2 + 1]; // Get the event info element
 
                 ctx.drawImage(img, padding, currentY + padding, 240, 160); // Draw image
-                ctx.fillText(eventInfo.textContent, 120 + padding + padding, currentY + 60 + padding); // Draw text next to image
+                ctx.fillText(eventInfo.textContent, 240 + padding + padding, currentY + 60 + padding); // Draw text next to image
 
-                currentY += 120 + 40;
+                currentY += 160 + 40;
             });
         });
 
