@@ -16,7 +16,6 @@
         const API_KEY = 'AIzaSyCbYXSHMp4dkTxF7yGplSLGdck2pQ-oBoU';
         const CALENDAR_ID = '1e819ad725d53549b6693d7df5669332ace8e3c91532ba15e79622443e6521c1@group.calendar.google.com';
         const uploadedImages = [];
-        const centerX = canvas.width / 2;
 
         function listUpcomingEvents() {
             gapi.client.init({
@@ -84,6 +83,8 @@
             const canvas = document.getElementById('resultCanvas');
             const ctx = canvas.getContext('2d');
             const padding = 20;
+            const centerX = canvas.width / 2;
+            
             ctx.fillStyle = '#FFFFFF'; // 白色を指定
             ctx.fillRect(0, 0, canvas.width, canvas.height); // Canvasの左上から右下まで塗りつぶす
             ctx.lineWidth = "8";
