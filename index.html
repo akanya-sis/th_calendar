@@ -37,6 +37,7 @@
                     const eventInfo = document.createElement('div');
                     eventInfo.textSummary = `${event.summary}`;
                     eventInfo.textTime = `${moment(start).format("MM/DD HH:mm")} 〜`;
+                    eventInfo.textContent = `${event.summary} ${moment(start).format("MM/DD HH:mm")} 〜`;
                     const fileInput = document.createElement('input');
                     fileInput.type = 'file';
                     fileInput.accept = 'image/*';
